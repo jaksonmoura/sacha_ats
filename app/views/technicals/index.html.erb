@@ -1,0 +1,33 @@
+<h1>Listing technicals</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Nickname</th>
+      <th>Password</th>
+      <th>Password digest</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @technicals.each do |technical| %>
+      <tr>
+        <td><%= technical.name %></td>
+        <td><%= technical.nickname %></td>
+        <td><%= technical.password %></td>
+        <td><%= technical.password_digest %></td>
+        <td><%= link_to 'Show', technical %></td>
+        <td><%= link_to 'Edit', edit_technical_path(technical) %></td>
+        <td><%= link_to 'Destroy', technical, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Technical', new_technical_path %>

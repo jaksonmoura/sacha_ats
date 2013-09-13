@@ -1,0 +1,31 @@
+<h2>Fechar chamada nº <%= @call.id %></h2>
+
+<h3>Problema desta chamada:</h3>
+<p><%= @call.problem.html_safe %></p>
+<hr>
+<%= form_for(@call, :url => url_for(:action => "done")) do |f| %>
+  <% if @call.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@call.errors.count, "erro") %> impediu(iram) que esta chamada fosse registrada:</h2>
+
+      <ul>
+      <% @call.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :id, :value => @call.id %>
+  <div class="service">
+    <label>Serviço realizado</label><br>
+    <%= f.text_area :service %>
+  </div>
+  <div class="obs">
+    <label>Observações (opcional)</label><br>
+    <%= f.text_area :obs %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Fechar chamada' %>
+  </div>
+<% end %>

@@ -1,0 +1,34 @@
+<h2>Chamadas em aberto</h2>
+<%= notice %>
+<table>
+  <thead>
+    <tr>
+      <th>Hora</th>
+      <th>Departamento</th>
+      <th>Servidor</th>
+      <th>Equipamento</th>
+      <th>Problema</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @calls.each do |call| %>
+      <tr>
+        <td><%= call.updated_at.strftime "%d/%m %H:%M" %></td>
+        <td><%= call.dpto_id %></td>
+        <td><%= call.servant_id %></td>
+        <td><%= call.equipment %></td>
+        <td><%= call.problem %></td>
+        <td><%= link_to 'Detalhes', call %></td>
+        <td><%= link_to 'Fechar', close_path(call) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Call', new_call_path %>

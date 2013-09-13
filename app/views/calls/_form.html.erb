@@ -1,0 +1,60 @@
+<% content_for :head do %>
+  <%= tinymce_assets %>
+<% end %>
+
+
+<%= form_for(@call) do |f| %>
+  <% if @call.errors.any? %>
+    <div id="error_explanation">
+      <% if @call.errors.count == 1%>
+        <h2>Chamada não salva devido à algum erro, verifique-o abaixo:</h2>
+      <% else %>
+        <h2>Chamada não salva devido à algums erros, verifique-os abaixo:</h2>
+      <% end %>
+
+      <ul>
+      <% @call.errors.each do |e, msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="left_content">
+    <div class="servant">
+      <label>Servidor</label><br>
+      <%= f.text_field :servant_id %>
+    </div>
+    <div class="dpto">
+      <label>Departamento</label><br>
+      <%= f.select(:dpto_id, @dptos.map {|d| [ d['name'], d['id'] ] }, {include_blank: 'Escolha seu departamento'}) %>
+    </div>
+    <div class="equipment">
+      <label>Equipamento com problemas</label><br>
+      <%= f.text_field :equipment %>
+    </div>
+    <div class="problem">
+      <label>Descrição do problema</label><br>
+      <%= f.text_area :problem, class: "tinymce" %>
+    </div>
+    <div class="actions">
+      <%= f.submit 'Salvar chamada' %>
+    </div>
+  </div>
+  <div class="right_content">
+    <div class="call_tips">
+      <h3>Algumas dicas:</h3>
+      <ul>
+        <li><b>Seja o mais preciso possível</b>, assim você está ajudando o pessoal da TI a solucionar seu problema mais rápido.</li>
+        <li><b>Se possível, inclua uma imagem da tecla do seu computador.</b> Algumas mensagens de erro produzidas pelo aplicativos que você usa, podem ser bastante úteis.</li>
+      </ul>
+      <div class="warning">Para capturar uma imagem da tela de seu computador, use o atalho:
+        <p class="emphasis"><%= image_tag('windows.png') %> + Pause Break</p>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% content_for :footer do %>
+  <%= tinymce %>
+<% end %>
