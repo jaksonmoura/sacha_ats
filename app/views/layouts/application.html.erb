@@ -1,14 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Sacha</title>
+  <title>ATS/SACHA - Sistema de Abertura de Chamadas de Suporte</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+  <%= content_for :head %>
 </head>
 <body>
 
-<%= yield %>
+<div id="wrapper">
+  <% unless notice.blank? %>
+    <script>$(document).ready(function(){$('.notice').hide().slideDown().delay(5000).slideUp();});</script>
+      <div class="notice">
+        <%= notice %>
+      </div>
+    <% end %>
 
+    <header>
+      <div class="container">
+        <div class="logo"><%= link_to image_tag('logo_small.png'), '/' %></div>
+        <p>Sistema de Chamadas</p>
+        <% if logged_in? %>
+          <%= link_to image_tag('logout.png')+' Sair', logout_path, :class => "logout" %>
+        <% end %>
+      </div>
+    </header>
+
+    <div id="main_content">
+      <div class="container">
+        <%= yield %>
+      </div>
+    </div>
+    
+    <footer>
+      <div class="container">
+        <p>Desenvolvido pela Diretoria de TI | Agência Tocantinense de Saneamento</p>
+      </div>
+    </footer>
+</div>
+<%= content_for :footer %>
 </body>
 </html>

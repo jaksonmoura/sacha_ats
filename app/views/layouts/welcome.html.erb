@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ATS/SACHA - Sistema de Abertura de Chamadas de Suporte</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div id="wrapper_welcome">
+
+  <% unless notice.blank? %>
+  <script>$(document).ready(function(){$('.notice').hide().slideDown().delay(5000).slideUp();});</script>
+    <div class="notice">
+      <%= notice %>
+    </div>
+  <% end %>
+
+  <header>
+    <div class="container">
+      <div class="logo"><%= link_to image_tag('logo.png'), '/' %></div>
+      <p>Sistema de Chamadas</p>
+    </div>
+  </header>
+
+  <%= yield %>
+  
+  <footer>
+    <div class="container">
+      <p>Desenvolvido pela Diretoria de TI | Agência Tocantinense de Saneamento</p>
+    </div>
+  </footer>
+</div>
+
+
+</body>
+</html>
