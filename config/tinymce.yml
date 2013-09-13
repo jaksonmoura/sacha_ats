@@ -1,10 +1,28 @@
 theme_advanced_toolbar_location: top
 theme_advanced_toolbar_align: left
+statusbar: false
+relative_urls: false
+language: pt_BR
 theme_advanced_buttons3_add:
   - tablecontrols
   - fullscreen
 plugins:
   - table
   - fullscreen
-statusbar: false
-alignment: false
+  - jbimages
+toolbar:
+  - jbimages
+  - insertfile
+  - undo
+  - redo
+
+  - bold
+  - italic
+  - alignleft
+  - aligncenter
+  - alignright
+  - alignjustify
+  - bullist
+  - numlist
+  - link
+  - image
