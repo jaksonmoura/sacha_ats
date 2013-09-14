@@ -5,7 +5,7 @@ class CreateCalls < ActiveRecord::Migration
       t.integer :servant_id
       t.integer :technical_id
       t.string :equipment
-      t.string :problem
+      t.text   :problem
       t.string :service, :null => true
       t.string :obs, :null => true
       t.boolean :closed, :default => false 

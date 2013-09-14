@@ -6,11 +6,15 @@ class CallsController < ApplicationController
   # GET /calls.json
   def index
     @calls = Call.where("closed = ?", false).order('updated_at DESC')
+    @dptos = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.dpto")
+    @servants = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.servant")
   end
 
   # GET /calls/1
   # GET /calls/1.json
   def show
+    @dptos = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.dpto")
+    @servants = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.servant")
   end
 
   # GET /calls/new
@@ -79,9 +83,19 @@ class CallsController < ApplicationController
     if @call.service != nil
       @call.closed = true
       @call.update(call_params)
-      redirect_to '/', notice: 'A chamada nº #{@call.id} foi fechado.'
+      redirect_to calls_path, notice: 'A chamada nº #{@call.id} foi fechado.'
     else
       redirect_to close_path(@call), notice: "Você precisa preencher todos os campos requeridos para salvar."
+    end
+  end
+
+  def get_servants
+    @servants = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.servant WHERE servant.name LIKE '%#{params[:servant]}%'")
+    @result = @servants.map do |s|
+      { value: s['name'], id: s['id']  }
+    end
+    respond_to do |format|
+      format.json { render :json => @result.to_json }
     end
   end
 

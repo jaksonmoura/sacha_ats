@@ -1,5 +1,6 @@
 <% content_for :head do %>
   <%= tinymce_assets %>
+  <%= stylesheet_link_tag  "jquery-ui-1.10.3.custom.min", media: "all", "data-turbolinks-track" => true %>
 <% end %>
 
 
@@ -20,41 +21,58 @@
     </div>
   <% end %>
 
-  <div class="left_content">
+  
     <div class="servant">
       <label>Servidor</label><br>
-      <%= f.text_field :servant_id, autofocus: true %>
+      <%= text_field_tag :servant_name, '', autofocus: true, 'data-autocompleteUrl' => get_servants_calls_path, required: true %>
+      <%= f.hidden_field :servant_id %>
     </div>
     <div class="dpto">
       <label>Departamento</label><br>
-      <%= f.select(:dpto_id, @dptos.map {|d| [ d['name'], d['id'] ] }, {include_blank: 'Escolha seu departamento'}) %>
+      <%= f.select(:dpto_id, @dptos.map {|d| [ d['name'], d['id'] ] }, {include_blank: 'Escolha seu departamento'}, required: true) %>
     </div>
     <div class="equipment">
       <label>Equipamento com problemas</label><br>
-      <%= f.text_field :equipment %>
+      <%= f.text_field :equipment, required: true %>
     </div>
     <div class="problem">
       <label>Descrição do problema</label><br>
-      <%= f.text_area :problem, class: "tinymce" %>
+      <%= f.text_area :problem, class: "tinymce", required: true %>
     </div>
     <div class="actions">
       <%= f.submit 'Salvar chamada' %>
     </div>
-  </div>
-  <div class="right_content">
-    <div class="call_tips">
-      <h3>Algumas dicas:</h3>
-      <ul>
-        <li><b>Seja o mais preciso possível</b>, assim você está ajudando o pessoal da TI a solucionar seu problema mais rápido.</li>
-        <li><b>Se possível, inclua uma imagem da tecla do seu computador.</b> Algumas mensagens de erro produzidas pelo aplicativos que você usa, podem ser bastante úteis.</li>
-      </ul>
-      <div class="warning">Para capturar uma imagem da tela de seu computador, use o atalho:
-        <p class="emphasis"><%= image_tag('windows.png') %> + Pause Break</p>
-      </div>
-    </div>
-  </div>
 <% end %>
 
 <% content_for :footer do %>
   <%= tinymce %>
+  <script>
+    $(function() {
+      return $('#servant_name').autocomplete({
+        minLength: 2,
+        select: function( event, ui ) {
+          $('#call_servant_id').val(ui.item.id);
+          $('#servant_name').attr('readonly', true);
+        },
+        source: function(request, response) {
+          return $.ajax({
+            url: $('#servant_name').data('autocompleteurl'),
+            data: {
+              servant: request.term
+            },
+            success: function(data) {
+              return response(data);
+            }
+          });
+        }
+      });
+    });
+
+    $('#servant_name').click(function() {
+      $(this).removeAttr("readonly");
+    });
+    $('#servant_name').focus(function() {
+      $(this).removeAttr("readonly");
+    });
+  </script>
 <% end %>

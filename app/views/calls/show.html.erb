@@ -1,24 +1,34 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Dpto:</strong>
-  <%= @call.dpto_id %>
-</p>
+<div class="left_content">
+  <p>
+    <h3>Departamento:</h3>
+    <% @dptos.each do |dpto| %>
+      <%= dpto['name'] if @call.dpto_id == dpto['id'] %>
+    <% end %>
+  </p>
 
-<p>
-  <strong>Servant:</strong>
-  <%= @call.servant_id %>
-</p>
+  <p>
+    <h3>Servidor:</h3>
+    <% @servants.each do |servant| %>
+      <%= servant['name'] if @call.servant_id == servant['id'] %>
+    <% end %>
+  </p>
 
-<p>
-  <strong>Equipment:</strong>
-  <%= @call.equipment %>
-</p>
+  <p>
+    <h3>Equipamento:</h3>
+    <%= @call.equipment %>
+  </p>
+</div>
+<div class="right_content">
+  <div class="info">
+  <p>
+    <h3>Problema:</h3>
+    <%= @call.problem.html_safe %>
+  </p>
+  </div>
+</div>
 
-<p>
-  <strong>Problem:</strong>
-  <%= @call.problem %>
-</p>
-
-<%= link_to 'Edit', edit_call_path(@call) %> |
-<%= link_to 'Back', calls_path %>
+<div class="actions">
+  <%= link_to 'Fechar chamada', close_path(@call) %>
+</div>

@@ -1,3 +1,21 @@
 <h1>Realizar chamada</h1>
 
+<div class="left_content">
 <%= render 'form' %>
+</div>
+
+<div class="right_content">
+  <div class="info">
+    <h3>Algumas dicas:</h3>
+    <ul>
+      <li><b>Seja o mais preciso possível</b>, assim você está ajudando o pessoal da TI a solucionar seu problema mais rápido.</li>
+      <li><b>Se possível, inclua uma imagem da tecla do seu computador.</b> Algumas mensagens de erro produzidas pelo aplicativos que você usa, podem ser bastante úteis.</li>
+    </ul>
+    <div class="warning">
+      <p>Para capturar uma imagem da tela de seu computador, use o atalho:</p>
+      <p class="emphasis"><%= image_tag('windows.png') %> + Pause Break</p>
+      <p>Em seguinda, abra o <b>Paint</b>, clique com o botão direito do mouse
+        na folha e depois em colar.</p>
+    </div>
+  </div>
+</div>

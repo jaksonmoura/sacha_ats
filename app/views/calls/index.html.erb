@@ -3,13 +3,11 @@
 <table>
   <thead>
     <tr>
-      <th>Hora</th>
+      <th>Data/Hora</th>
       <th>Departamento</th>
       <th>Servidor</th>
       <th>Equipamento</th>
       <th>Problema</th>
-      <th></th>
-      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -18,17 +16,21 @@
     <% @calls.each do |call| %>
       <tr>
         <td><%= call.updated_at.strftime "%d/%m %H:%M" %></td>
-        <td><%= call.dpto_id %></td>
-        <td><%= call.servant_id %></td>
+        <td>
+          <% @dptos.each do |dpto| %>
+            <%= dpto['name'] if call.dpto_id == dpto['id'] %>
+          <% end %>
+        </td>
+        <td>
+          <% @servants.each do |servant| %>
+            <%= servant['name'] if call.servant_id == servant['id'] %>
+          <% end %>
+        </td>
         <td><%= call.equipment %></td>
-        <td><%= call.problem %></td>
-        <td><%= link_to 'Detalhes', call %></td>
-        <td><%= link_to 'Fechar', close_path(call) %></td>
+        <td><%= truncate(strip_tags(raw(call.problem)), :length => 110, :omission => '...') %>
+        </td>
+        <td><%= link_to image_tag('details2.png'), call, title: 'Detalhes'  %>       <%= link_to image_tag('close.png'), close_path(call), title: 'Fechar chamada' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Call', new_call_path %>
