@@ -1,27 +1,29 @@
 class SessionsController < ApplicationController
+  require 'bcrypt'
   skip_before_filter :authenticate_user
   skip_before_filter :authenticate_admin
-  require 'bcrypt'
   
   def new
   end
     
   def create
     if admin?
-      session[:servant] = 0
+      session[:logged] = 1
+      session[:admin] = 1
+      session[:technical_id] = @adminuser.id
+      redirect_to calls_path, notice: "Bem-vindo, Administrador!"
+    elsif authenticated?
+      session[:logged] = 1
       session[:technical_id] = @bduser.id
       redirect_to calls_path, notice: "Bem-vindo, #{@bduser.name}!"
-    elsif authenticated?
-      session[:servant] = 1
-      session[:technical_id] = @bduser.id
-      redirect_to calls_path, notice: "Bem-vindo, Administrador!"
     else
       render action: 'new', notice: 'Nome de usuário ou senha inválidos.'
     end  
   end  
   
   def destroy  
-    session[:servant] = nil
+    session[:logged] = nil
+    session[:admin] = nil
     redirect_to login_path, notice: 'Você saiu.'
   end
 
@@ -29,14 +31,16 @@ class SessionsController < ApplicationController
 
     def admin?
       user, password = params[:nickname], params[:password]
-      @bduser = Technical.find_by_nickname(params[:nickname])
-      @bduser && @bduser.authenticate(params[:password]) && @bduser.admin == 1
+      @adminuser = Technical.find_by_nickname(user)
+      @adminuser && @adminuser.authenticate(password) && @adminuser.admin == true
     end
 
     def authenticated?
       user, password = params[:nickname], params[:password]
-      @bduser = Technical.find_by_nickname(params[:nickname])
-      @bduser && @bduser.authenticate(params[:password])
+      @bduser = Technical.find_by_nickname(user)
+      @bduser && @bduser.authenticate(password) && @bduser.admin == false
     end
+
+
 
 end

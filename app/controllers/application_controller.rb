@@ -7,13 +7,13 @@ class ApplicationController < ActionController::Base
   private
 
     def authenticate_user
-      if session[:servant] != 1 || session[:servant].nil?
+      if session[:logged] != 1 || session[:logged].nil?
         redirect_to login_path, notice: 'Você precisa logar!'
       end
     end
 
     def authenticate_admin
-      if session[:servant] != 0 || session[:servant].nil?
+      if session[:logged] != 1|| session[:admin] != 1 || session[:logged].nil?
         redirect_to login_path, notice: 'Você precisa logar como administrador!'
       end
     end

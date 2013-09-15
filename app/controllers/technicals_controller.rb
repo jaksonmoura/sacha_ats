@@ -1,6 +1,6 @@
 class TechnicalsController < ApplicationController
-  skip_before_filter :authenticate_user, only: [:new, :create]
-  before_filter :authenticate_admin, only: [:new, :create]
+  skip_before_filter :authenticate_user, only: [:index, :new, :create]
+  before_filter :authenticate_admin, only: [:index, :new, :create]
   before_action :set_technical, only: [:show, :edit, :update, :destroy]
 
 
