@@ -3,16 +3,12 @@
 <div class="left_content">
   <p>
     <h3>Departamento:</h3>
-    <% @dptos.each do |dpto| %>
-      <%= dpto['name'] if @call.dpto_id == dpto['id'] %>
-    <% end %>
+      <%= @dpto[0]['name']%>
   </p>
 
   <p>
     <h3>Servidor:</h3>
-    <% @servants.each do |servant| %>
-      <%= servant['name'] if @call.servant_id == servant['id'] %>
-    <% end %>
+      <%= @servant[0]['name']%>
   </p>
 
   <p>

@@ -13,8 +13,8 @@ class CallsController < ApplicationController
   # GET /calls/1
   # GET /calls/1.json
   def show
-    @dptos = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.dpto")
-    @servants = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.servant")
+    @dpto = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.dpto WHERE dpto.id = #{@call.dpto_id}")
+    @servant = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.servant WHERE servant.id = #{@call.servant_id}")
   end
 
   # GET /calls/new
@@ -80,10 +80,11 @@ class CallsController < ApplicationController
   # PATCH/PUT /calls/1/done
   def done
     @call = Call.find(params[:id])
-    if @call.service != nil
+    unless call_params[:service] == ""
       @call.closed = true
+      @call.technical_id = session[:technical_id]
       @call.update(call_params)
-      redirect_to calls_path, notice: 'A chamada nº #{@call.id} foi fechado.'
+      redirect_to calls_path, notice: "A chamada #{@call.id} foi fechado."
     else
       redirect_to close_path(@call), notice: "Você precisa preencher todos os campos requeridos para salvar."
     end

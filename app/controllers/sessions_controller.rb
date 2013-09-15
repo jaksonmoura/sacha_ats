@@ -9,10 +9,12 @@ class SessionsController < ApplicationController
   def create
     if admin?
       session[:servant] = 0
-      redirect_to root_path, notice: "Bem-vindo, #{@bduser.name}!"
+      session[:technical_id] = @bduser.id
+      redirect_to calls_path, notice: "Bem-vindo, #{@bduser.name}!"
     elsif authenticated?
       session[:servant] = 1
-      redirect_to root_path, notice: "Bem-vindo, Administrador!"
+      session[:technical_id] = @bduser.id
+      redirect_to calls_path, notice: "Bem-vindo, Administrador!"
     else
       render action: 'new', notice: 'Nome de usuário ou senha inválidos.'
     end  
@@ -27,14 +29,14 @@ class SessionsController < ApplicationController
 
     def admin?
       user, password = params[:nickname], params[:password]
-      bduser = Technical.find_by_nickname(params[:nickname])
-      bduser && bduser.authenticate(params[:password]) && bduser.admin == 1
+      @bduser = Technical.find_by_nickname(params[:nickname])
+      @bduser && @bduser.authenticate(params[:password]) && @bduser.admin == 1
     end
 
     def authenticated?
       user, password = params[:nickname], params[:password]
-      bduser = Technical.find_by_nickname(params[:nickname])
-      bduser && bduser.authenticate(params[:password])
+      @bduser = Technical.find_by_nickname(params[:nickname])
+      @bduser && @bduser.authenticate(params[:password])
     end
 
 end
