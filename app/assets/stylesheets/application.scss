@@ -136,6 +136,25 @@ input, textarea{
     background: #364753;
     color: #fff;
 
+    nav{
+      float: left;
+      margin: 0 20px 0 50px; 
+
+      li{
+        display: inline;
+
+        a{
+          line-height: 50px;
+          padding: 0 10px;
+          float: left;
+        }
+
+        a:hover{
+          background: rgba(#fff, 0.15)
+        }
+      }
+    }
+
     p{
       float: left;
     }
@@ -158,11 +177,16 @@ input, textarea{
     .logout{
       float: right;
       line-height: 50px;
+      padding: 0 10px;
 
       img{
         float: left;
         margin: 16px 5px 0 0;
       }
+    }
+
+    .logout:hover{
+    	background: rgba(#fff, 0.15)
     }
   }
 

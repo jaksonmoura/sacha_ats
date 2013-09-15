@@ -86,7 +86,7 @@ class CallsController < ApplicationController
       @call.update(call_params)
       redirect_to calls_path, notice: "A chamada #{@call.id} foi fechado."
     else
-      redirect_to close_path(@call), notice: "Você precisa preencher todos os campos requeridos para salvar."
+      redirect_to close_path(@call), notice: "Descreva ao menos o serviço realizado para salvar."
     end
   end
 
