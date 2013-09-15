@@ -1,14 +1,37 @@
-<p id="notice"><%= notice %></p>
+<h2>Detalhes de <%= @technical.name %> (<%= @technical.nickname %>)</h2>
 
-<p>
-  <strong>Name:</strong>
-  <%= @technical.name %>
-</p>
+<h3>Chamadas fechadas:</h3>
 
-<p>
-  <strong>Nickname:</strong>
-  <%= @technical.nickname %>
-</p>
+<table>
+  <thead>
+    <tr>
+      <th>Data/Hora</th>
+      <th>Departamento</th>
+      <th>Equipamento</th>
+      <th>Problema</th>
+      <th></th>
+    </tr>
+  </thead>
 
-<%= link_to 'Edit', edit_technical_path(@technical) %> |
-<%= link_to 'Back', technicals_path %>
+  <tbody>
+    <% @calls.each do |call| %>
+      <tr>
+        <td><%= call.updated_at.strftime "%d/%m %H:%M" %></td>
+        <td>
+          <% @dptos.each do |dpto| %>
+            <%= dpto['name'] if call.dpto_id == dpto['id'] %>
+          <% end %>
+        </td>
+        <td><%= call.equipment %></td>
+        <td><%= truncate(strip_tags(raw(call.problem)), :length => 110, :omission => '...') %>
+        </td>
+        <td><%= link_to image_tag('details.png'), call, title: 'Detalhes da chamada'  %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<div class="actions">
+<%= link_to 'Editar', edit_technical_path(@technical) %>
+</div>

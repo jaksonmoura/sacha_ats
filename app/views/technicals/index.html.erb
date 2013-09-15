@@ -1,14 +1,11 @@
-<h1>Listing technicals</h1>
+<h2>Técnicos</h2>
 
-<table>
+<table class="technical_table">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Nickname</th>
-      <th>Password</th>
-      <th>Password digest</th>
-      <th></th>
-      <th></th>
+      <th>Nome</th>
+      <th>Usuário</th>
+      <th>Administrador?</th>
       <th></th>
     </tr>
   </thead>
@@ -18,11 +15,10 @@
       <tr>
         <td><%= technical.name %></td>
         <td><%= technical.nickname %></td>
-        <td><%= technical.password %></td>
-        <td><%= technical.password_digest %></td>
-        <td><%= link_to 'Show', technical %></td>
-        <td><%= link_to 'Edit', edit_technical_path(technical) %></td>
-        <td><%= link_to 'Destroy', technical, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= technical.admin ? "Sim" : "Não" %></td>
+        <td><%= link_to image_tag('details.png'), technical, title: "Detalhes" %>
+        <%= link_to image_tag('edit.png'), edit_technical_path(technical), title: "Editar" %>
+        <%= link_to image_tag('remove.png'), technical, method: :delete, data: { confirm: 'Deseja REMOVER este técnico?' }, title: "Remover" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +26,6 @@
 
 <br>
 
-<%= link_to 'New Technical', new_technical_path %>
+<div class="actions">
+  <%= link_to 'Novo Técnico', new_technical_path %>
+</div>

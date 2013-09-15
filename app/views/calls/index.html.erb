@@ -28,7 +28,7 @@
         <td><%= call.equipment %></td>
         <td><%= truncate(strip_tags(raw(call.problem)), :length => 110, :omission => '...') %>
         </td>
-        <td><%= link_to image_tag('details2.png'), call, title: 'Detalhes'  %>       <%= link_to image_tag('close.png'), close_path(call), title: 'Fechar chamada' %></td>
+        <td><%= link_to image_tag('details.png'), call, title: 'Detalhes'  %>       <%= link_to image_tag('close.png'), close_path(call), title: 'Fechar chamada' %></td>
       </tr>
     <% end %>
   </tbody>

@@ -13,6 +13,8 @@ class TechnicalsController < ApplicationController
   # GET /technicals/1
   # GET /technicals/1.json
   def show
+    @calls = Call.where("technical_id = ? and closed = ?", @technical.id, true)
+    @dptos = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.dpto")
   end
 
   # GET /technicals/new
