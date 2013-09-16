@@ -179,10 +179,11 @@ input, textarea{
       color: #fff;
     }
 
-    .logout{
-      float: right;
-      line-height: 50px;
-      padding: 0 10px;
+    .technical_session{
+    	float: right;
+    }
+
+    .logout, .login{
 
       img{
         float: left;

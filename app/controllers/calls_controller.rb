@@ -1,6 +1,6 @@
 class CallsController < ApplicationController
   before_action :set_call, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :authenticate_user, only: [:new, :create]
+  skip_before_filter :authenticate_user, only: [:new, :create, :get_servants, :last_calls]
 
   # GET /calls
   # GET /calls.json
@@ -98,6 +98,12 @@ class CallsController < ApplicationController
     respond_to do |format|
       format.json { render :json => @result.to_json }
     end
+  end
+
+  def last_calls
+    @lastcall = Call.where("closed = ? and created_at > ?", false, Time.at(params[:after].to_i) + 1)
+    @dptos = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.dpto")
+    @servants = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.servant")
   end
 
   private

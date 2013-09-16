@@ -1,6 +1,7 @@
 <% content_for :head do %>
   <%= tinymce_assets %>
-  <%= stylesheet_link_tag  "jquery-ui-1.10.3.custom.min", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag  "ui-lightness/jquery-ui-1.10.3.custom", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "jquery-ui-1.10.3.custom.min", "data-turbolinks-track" => true %>
 <% end %>
 
 
@@ -37,7 +38,7 @@
     </div>
     <div class="problem">
       <label>Descrição do problema</label><br>
-      <%= f.text_area :problem, class: "tinymce", required: true %>
+      <%= f.text_area :problem, class: "tinymce" %>
     </div>
     <div class="actions">
       <%= f.submit 'Salvar chamada' %>

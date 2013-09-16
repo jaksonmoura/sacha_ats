@@ -1,3 +1,7 @@
+<% content_for :head do %>
+<%= stylesheet_link_tag  "ui-lightness/jquery-ui-1.10.3.custom", media: "all", "data-turbolinks-track" => true %>
+<%= javascript_include_tag "jquery-ui-1.10.3.custom.min", "data-turbolinks-track" => true %>
+<% end %>
 <h2>Chamadas em aberto</h2>
 <table>
   <thead>
@@ -11,25 +15,9 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody class="calls">
     <% @calls.each do |call| %>
-      <tr>
-        <td><%= call.updated_at.strftime "%d/%m %H:%M" %></td>
-        <td>
-          <% @dptos.each do |dpto| %>
-            <%= dpto['name'] if call.dpto_id == dpto['id'] %>
-          <% end %>
-        </td>
-        <td>
-          <% @servants.each do |servant| %>
-            <%= servant['name'] if call.servant_id == servant['id'] %>
-          <% end %>
-        </td>
-        <td><%= call.equipment %></td>
-        <td><%= truncate(strip_tags(raw(call.problem)), :length => 110, :omission => '...') %>
-        </td>
-        <td><%= link_to image_tag('details.png'), call, title: 'Detalhes'  %>       <%= link_to image_tag('close.png'), close_path(call), title: 'Fechar chamada' %></td>
-      </tr>
+      <%= render call %>
     <% end %>
   </tbody>
 </table>

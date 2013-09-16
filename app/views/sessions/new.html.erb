@@ -5,7 +5,7 @@
       <%= form_tag login_path do %>
         <div class="field">
           <label>Usuário</label><br/>
-          <%= text_field_tag :nickname, params[:nickname] %>
+          <%= text_field_tag :nickname, params[:nickname], autofocus: true %>
         </div>
         <div class="field">
           <label>Senha</label><br/>

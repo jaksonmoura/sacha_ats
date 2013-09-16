@@ -1,0 +1,3 @@
+<% unless @lastcall.empty? %>
+$(".calls").prepend("<%=j render(@lastcall) %>").hide().fadeIn("slow");
+<% end %>
