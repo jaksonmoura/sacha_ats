@@ -1,6 +1,15 @@
 class CallsController < ApplicationController
   before_action :set_call, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :authenticate_user, only: [:new, :create, :get_servants, :last_calls]
+  skip_before_filter :authenticate_user, only: [:new, :create, :get_servants, :last_calls, :follow, :saved]
+
+  # GET /calls/1/follow
+  def follow
+    if params[:numprocess]
+      @call = Call.find_by_numprocess(params[:numprocess])
+      @dpto = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.dpto WHERE dpto.id = #{@call.dpto_id}")
+      @servant = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.servant WHERE servant.id = #{@call.servant_id}")
+    end
+  end
 
   # GET /calls
   # GET /calls.json
@@ -33,9 +42,12 @@ class CallsController < ApplicationController
     @call = Call.new(call_params)
     # Repetido aqui, para que os erros possam ser mostrados se houver.
     @dptos = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.dpto")
+    lastcall = Call.last(select: :id)
+    np = Time.now.strftime("%Y") + (lastcall.id + 1).to_s
+    @call.numprocess = np.to_i
     respond_to do |format|
       if @call.save
-        format.html { redirect_to @call, notice: 'Chamada criada.' }
+        format.html { redirect_to saved_path(@call), notice: 'Chamada criada.' }
         format.json { render action: 'saved', status: :created, location: @call }
       else
         format.html { render action: 'new' }
@@ -70,6 +82,7 @@ class CallsController < ApplicationController
 
   # GET /calls/saved
   def saved
+    @call = Call.find(params[:id])
   end
 
   # GET /calls/1/close
@@ -93,7 +106,7 @@ class CallsController < ApplicationController
   def get_servants
     @servants = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.servant WHERE servant.name LIKE '%#{params[:servant]}%'")
     @result = @servants.map do |s|
-      { value: s['name'], id: s['id']  }
+      { value: s['name'], s_id: s['id']  }
     end
     respond_to do |format|
       format.json { render :json => @result.to_json }

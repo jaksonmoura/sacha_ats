@@ -1,6 +1,6 @@
 <% content_for :head do %>
   <%= tinymce_assets %>
-  <%= stylesheet_link_tag  "ui-lightness/jquery-ui-1.10.3.custom", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag  "ui-lightness/jquery-ui-1.10.3.custom", "scaffolds", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "jquery-ui-1.10.3.custom.min", "data-turbolinks-track" => true %>
 <% end %>
 
@@ -34,7 +34,7 @@
     </div>
     <div class="equipment">
       <label>Equipamento com problemas</label><br>
-      <%= f.text_field :equipment, required: true %>
+      <%=  f.select(:equipment, %w{Desktop Notebook Impressora Scanner}, {include_blank: 'Escolha o equipamento'}, required: true) %>
     </div>
     <div class="problem">
       <label>Descrição do problema</label><br>
@@ -51,8 +51,9 @@
     $(function() {
       return $('#servant_name').autocomplete({
         minLength: 2,
+        autoFocus: true,
         select: function( event, ui ) {
-          $('#call_servant_id').val(ui.item.id);
+          $('#call_servant_id').val(ui.item.s_id);
           $('#servant_name').attr('readonly', true);
         },
         source: function(request, response) {
@@ -65,8 +66,30 @@
               return response(data);
             }
           });
+        },
+        open: function( event, ui ) {
+          // Bold the term that matchs
+          var term = $( this ).val();
+          $( this ).autocomplete( "widget" ).find( ".ui-menu-item > a" )
+              .html( function(i, oldHtml) {
+                  return oldHtml.replace( term, "<b>$&</b>" );
+              }
+          );
+          var firstElement = $(this).data("uiAutocomplete").menu.element[0].children[0]
+             , inpt = $('#servant_name')
+             , original = inpt.val()
+             , firstElementText = $(firstElement).text();
+          
+          if(firstElementText.toLowerCase().indexOf(original.toLowerCase()) === 0){
+              inpt.val(firstElementText);//change the input to the first match
+              inpt[0].selectionStart = original.length; //highlight from end of input
+              inpt[0].selectionEnd = firstElementText.length;//highlight to the end
+          }
+        },
+        focus: function(event, ui) {
+          $('#call_servant_id').val(ui.item.s_id);
         }
-      });
+      }); 
     });
 
     $('#servant_name').click(function() {
