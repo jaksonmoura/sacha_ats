@@ -27,7 +27,10 @@
           <% if admin? %>
           <li><%= link_to "Técnicos", technicals_path %></li>
           <% end %>
+          <% if logged_in? %>
+          <li><%= link_to "Serviços", services_path %></li>
           <li><%= link_to "Relatórios", calls_path %></li>
+          <% end %>
         </nav>
 
         <nav class="technical_session">

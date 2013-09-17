@@ -79,6 +79,40 @@ table{
       border-bottom:1px solid #e0e0e0;
     }
 
+    .danger_p, .warning_p, .normal_p, .low_p{
+      text-align: center;
+      border-radius: 5px;
+      border: 1px solid rgba(black, .4);
+      padding: 8px;
+      width: 95%;
+      float: left;
+    }
+
+
+    .danger_p{
+      background: #722A20;
+      color: #FFF;
+      text-shadow: 0 -1px 0px rgba(black, .4);  
+    }
+
+    .warning_p{
+      background: #FF8F00;
+      color: #FFF;
+      text-shadow: 0 -1px 0px rgba(black, .4);
+    }
+
+    .normal_p{
+      background: #3973B8;
+      color: #FFF;
+      text-shadow: 0 -1px 0px rgba(black, .4);
+    }
+
+    .low_p{
+      background: #dedede;
+      color: #555;
+      text-shadow: 0 1px 0px rgba(white, .4);  
+    }
+
     // yellow tr
     .call_warning:nth-child(2n), .call_warning:nth-child(2n+1){
       background: #FFEB00;
@@ -86,6 +120,8 @@ table{
 
     .call_warning:nth-child(2n):hover, .call_warning:nth-child(2n+1):hover{
       background: #FADF8A;
+
+
     }
 
     // red tr
@@ -93,6 +129,7 @@ table{
       background: #C93434;
       color: #fff;
       text-shadow: 0 -1px 0px rgba(black, .5);
+
     }
 
     .call_danger:nth-child(2n):hover, .call_danger:nth-child(2n+1):hover{

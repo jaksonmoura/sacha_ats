@@ -3,8 +3,6 @@
   <%= stylesheet_link_tag  "ui-lightness/jquery-ui-1.10.3.custom", "scaffolds", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "jquery-ui-1.10.3.custom.min", "data-turbolinks-track" => true %>
 <% end %>
-
-
 <%= form_for(@call) do |f| %>
   <% if @call.errors.any? %>
     <div id="error_explanation">
@@ -21,7 +19,6 @@
       </ul>
     </div>
   <% end %>
-
   
     <div class="servant">
       <label>Servidor</label><br>
@@ -34,7 +31,7 @@
     </div>
     <div class="equipment">
       <label>Equipamento com problemas</label><br>
-      <%=  f.select(:equipment, %w{Desktop Notebook Impressora Scanner}, {include_blank: 'Escolha o equipamento'}, required: true) %>
+      <%=  f.select(:service_id, @services.map { |s| [s.service, s.id] }, {include_blank: 'Escolha o equipamento'}, required: true) %>
     </div>
     <div class="problem">
       <label>Descrição do problema</label><br>

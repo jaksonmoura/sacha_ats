@@ -5,7 +5,7 @@
 <% else %>
 <tr id="call" data-time="<%= call.created_at.to_i %>">
 <% end %>
-  <td><%= call.updated_at.strftime "%d/%m %H:%M" %></td>
+  <td><%= call.created_at.strftime "%d/%m %H:%M" %></td>
   <td>
     <% @dptos.each do |dpto| %>
       <%= dpto['name'] if call.dpto_id == dpto['id'] %>
@@ -16,7 +16,19 @@
       <%= servant['name'] if call.servant_id == servant['id'] %>
     <% end %>
   </td>
-  <td><%= call.equipment %></td>
+  <td>
+    <% case call.service.priority %>
+    <% when 1 %>
+      <span class="danger_p">Urgente</span>
+    <% when 2 %>
+      <span class="warning_p">Alta</span>
+    <% when 3 %>
+      <span class="normal_p">Normal</span>
+    <% when 4 %>
+      <span class="low_p">Baixa</span>
+    <% end %>
+  </td>
+  <td><%= call.service.service %></td>
   <td><%= truncate(strip_tags(raw(call.problem)), :length => 110, :omission => '...') %>
   </td>
   <td><%= link_to image_tag('details.png'), call, title: 'Detalhes'  %>       <%= link_to image_tag('close.png'), close_path(call), title: 'Fechar chamada' %></td>

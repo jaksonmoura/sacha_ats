@@ -4,10 +4,10 @@ class CreateCalls < ActiveRecord::Migration
       t.integer :dpto_id
       t.integer :servant_id
       t.integer :technical_id
-      t.string :equipment
-      t.text   :problem
-      t.string :service, :null => true
-      t.string :obs, :null => true
+      t.integer :service_id
+      t.text    :problem
+      t.string  :service, :null => true
+      t.string  :obs, :null => true
       t.boolean :closed, :default => false 
 
       t.timestamps

@@ -14,7 +14,7 @@ class CallsController < ApplicationController
   # GET /calls
   # GET /calls.json
   def index
-    @calls = Call.where("closed = ?", false).order('updated_at DESC')
+    @calls = Call.where("closed = ?", false).order('created_at DESC').includes(:service)
     @dptos = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.dpto")
     @servants = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.servant")
   end
@@ -30,6 +30,7 @@ class CallsController < ApplicationController
   def new
     @call = Call.new
     @dptos = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.dpto")
+    @services = Service.all
   end
 
   # GET /calls/1/edit
@@ -43,7 +44,12 @@ class CallsController < ApplicationController
     # Repetido aqui, para que os erros possam ser mostrados se houver.
     @dptos = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.dpto")
     lastcall = Call.last(select: :id)
-    np = Time.now.strftime("%Y") + (lastcall.id + 1).to_s
+    if lastcall
+      lid = lastcall.id
+    else
+      lid = 0
+    end
+    np = Time.now.strftime("%Y") + (lid + 1).to_s 
     @call.numprocess = np.to_i
     respond_to do |format|
       if @call.save
@@ -127,6 +133,6 @@ class CallsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def call_params
-      params.require(:call).permit(:dpto_id, :servant_id, :technical_id, :equipment, :problem, :service, :obs, :closed)
+      params.require(:call).permit(:dpto_id, :servant_id, :technical_id, :service_id, :problem, :service, :obs, :closed)
     end
 end

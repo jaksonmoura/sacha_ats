@@ -1,0 +1,29 @@
+<%= form_for(@service) do |f| %>
+  <% if @service.errors.any? %>
+    <div id="error_explanation">
+      <% if @call.errors.count == 1%>
+        <h3>Serviço não salvo devido à algum erro, verifique-o abaixo:</h3>
+      <% else %>
+        <h3>Serviço não salvo devido à algums erros, verifique-os abaixo:</h3>
+      <% end %>
+
+      <ul>
+      <% @service.errors.each do |e, msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <label>Serviço</label><br>
+    <%= f.text_field :service %>
+  </div>
+  <div class="field">
+    <label>Prioridade</label><br>
+    <%= f.select(:priority, {"Urgente" => 1, "Alta" => 2, "Normal" => 3, "Baixa" => 4}, {include_blank: 'Escolha a prioridade:'}, required: true) %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Salvar' %>
+  </div>
+<% end %>

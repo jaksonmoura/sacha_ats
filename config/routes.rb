@@ -4,6 +4,8 @@ Sacha::Application.routes.draw do
     match '/logout' => 'sessions#destroy', via: [:get, :post]
     resources :technicals
 
+    resources :services
+
     resources :calls, except: [] do
         get :get_servants, :on => :collection
     end

@@ -1,0 +1,39 @@
+<h1>Serviços</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Prioridade</th>
+      <th>Serviço</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @services.each do |service| %>
+      <tr>
+        <td><%= service.service %></td>
+        <td>
+          <% case service.priority %>
+          <% when 1 %>
+            Urgente
+          <% when 2 %>
+            Alta
+          <% when 3 %>
+            Média
+          <% when 4 %>
+            Baixa
+          <% end %>
+        </td>
+        <td><%= link_to image_tag('edit.png'), edit_service_path(service), title: 'Editar' %>
+        <%= link_to image_tag('remove.png'), service, method: :delete, data: { confirm: 'Deseja REMOVER este serviço?' }, title: 'Remover' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<div class="actions">
+<%= link_to 'Novo serviço', new_service_path %>
+</div>
