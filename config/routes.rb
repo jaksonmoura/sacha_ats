@@ -7,6 +7,9 @@ Sacha::Application.routes.draw do
     resources :calls, except: [] do
         get :get_servants, :on => :collection
     end
+
+    get '/calls/:id/saved' => 'calls#saved', as: :saved
+    match '/follow/' => 'calls#follow', as: :follow, via: [:get, :post]
     get '/lastcalls' => 'calls#last_calls', as: :last_calls
     get '/calls/:id/close/' => 'calls#close', as: :close
     match '/calls/:id/done/' => 'calls#done', as: :done, via: [:patch, :put]

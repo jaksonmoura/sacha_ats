@@ -1,7 +1,7 @@
 theme_advanced_toolbar_location: top
 theme_advanced_toolbar_align: left
 statusbar: false
-relative_urls: false
+relative_urls: true
 language: pt_BR
 theme_advanced_buttons3_add:
   - tablecontrols

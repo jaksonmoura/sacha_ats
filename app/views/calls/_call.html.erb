@@ -1,4 +1,10 @@
-<tr class="call" data-time="<%= call.created_at.to_i %>">
+<% if call.created_at <= 1.day.ago %>
+<tr id="call" class="call_danger" data-time="<%= call.created_at.to_i %>">
+<% elsif call.created_at <= 8.hours.ago && call.created_at >= 1.day.ago %>
+<tr id="call" class="call_warning" data-time="<%= call.created_at.to_i %>">
+<% else %>
+<tr id="call" data-time="<%= call.created_at.to_i %>">
+<% end %>
   <td><%= call.updated_at.strftime "%d/%m %H:%M" %></td>
   <td>
     <% @dptos.each do |dpto| %>

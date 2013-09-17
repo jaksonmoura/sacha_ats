@@ -1,0 +1,47 @@
+<h2>Acompanhar chamada</h2>
+
+<div class="left_content">
+  <% unless @call %>
+  <div class="advice">
+    Entre com um nº de chamada para obter informações.
+  </div>
+  <% end %>
+  <%= form_tag(follow_path, :class => "follow_form") do %>
+    <div class="field">
+      <label>Nº de chamada</label><br/>
+      <%= text_field_tag :numprocess, "", required: true %>
+    </div>
+    <div class="actions">
+      <%= submit_tag "Acompanhar" %>
+    </div>
+  <% end %>
+</div>
+
+<% if @call %>
+<h3>Dados da chamada nº <%= @call.numprocess %></h3>
+<div class="left_content">
+  <p>
+    <strong>Departamento:</strong> <%= @dpto[0]['name']%>
+  </p>
+  <p>
+    <strong>Servidor:</strong> <%= @servant[0]['name']%>
+  </p>
+  <p>
+    <strong>Equipamento:</strong> <%= @call.equipment %>
+  </p>
+  <div class="info">
+  <p>
+    <h3>Problema:</h3>
+    <%= @call.problem.html_safe %>
+  </p>
+  </div>
+  <p class="status_call">
+    <strong>Status: </strong>
+    <% if @call.closed %>
+    <span class="warning">Chamada finalizada</span>
+    <% else %>
+    <span class="ok">Em andamento</span>
+    <% end %>
+  </p>
+</div>
+<% end %>

@@ -1,5 +1,6 @@
 $bg: #435B6D;
 $bgc: #f9f9f9;
+$advice: #BEE8FF;
 
 html, body{
   margin: 0;
@@ -23,9 +24,13 @@ a{
   text-decoration: none;
 }
 
-.container{
+.container, .center_container{
   float: left;
   width: 100%;
+}
+
+.center_container{
+  text-align: center;
 }
 
 .notice{
@@ -106,15 +111,9 @@ input, textarea{
   }
 
 
-  .warning{
-    background: #FFEB00;
-    border: 1px solid #CF9731;
+  .warning, .advice{
     border-radius: 5px;
-    padding: 10px;
-    color: #AD7E26; 
     text-align: center;
-    width: 85%;
-    margin: 0 auto;
 
     .emphasis{
       font-size: 25px;
@@ -124,7 +123,25 @@ input, textarea{
         margin: 4px 0 -4px 0;
       }
     }
+  }
 
+  .warning{
+    background: #FFEB00;
+    border: 1px solid #CF9731;
+    color: #AD7E26;
+    padding: 10px;
+    width: 85%;
+    margin: 0 auto;
+  }
+
+  .advice{
+    background: $advice;
+    border: 1px solid rgba($bg, .4);
+    color: $bg;
+    float: left;
+    margin: 10px 0;
+    width: 92%;
+    padding: 10px 0;
   }
 
   header{
@@ -150,7 +167,7 @@ input, textarea{
         }
 
         a:hover{
-          background: rgba(#fff, 0.15)
+          background: rgba(#fff, 0.15);
         }
       }
     }
@@ -224,9 +241,7 @@ input, textarea{
     width: 50%;
   }
 
-  .info{
-    background: #B5E7B5;
-    color: #008080;
+  .info, .ok{
     padding: 10px;
     border-radius: 5px;
     text-shadow: 0 1px 0px hsla(0,100%, 100%, .5);
@@ -239,6 +254,18 @@ input, textarea{
         margin: 0 0 15px 0;
       }
     }
+  }
+
+  .info{
+    background: #B5E7B5;
+    color: #008080;
+    margin: 0 0 15px 0;
+  }
+
+  .ok{
+    background: $advice;
+    color: $bg;
+    border: 1px solid rgba($bg, .4);
   }
 
   .equipment, .problem, .actions{
@@ -259,7 +286,7 @@ input, textarea{
     width: 100%;
   }
 
-  .equipment input{
+  .equipment select{
     width: 100%;
   }
 
@@ -417,4 +444,33 @@ input, textarea{
 
 		
 	}
+}
+
+// ==================
+//       FOLLOW
+// ==================
+
+.follow_form{
+  padding: 10px 0 0 10px;
+  float: left;
+  width: 100%;
+  background: #E6E6E6;
+  border-radius: 5px;
+  color: #555;
+  text-shadow: 0 1px 0px #FFF;
+  margin: 0 0 10px 0;
+}
+
+.empty_box{
+  float: left;
+  width: 100%;
+  margin: 10px 0;
+  padding: 50px 0;
+  text-align: center;
+  background: #ededed;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  color: #777;
+  font-weight: bold;
+  text-shadow: 0 1px 0px #fff;
 }

@@ -1,0 +1,9 @@
+<div class="center_container">
+  <h2>Chamada nº <%= @call.numprocess %> criada com sucesso!</h2>
+  <div class="info">
+    <h3>Ok! Agora basta aguardar que em breve estaremos trabalhando no seu problema.</h3>
+  </div>
+  <div class="actions">
+    <%= link_to 'Acompanhar chamada', {:action => 'follow', :controller => 'calls', :numprocess => @call.numprocess} %>
+  </div>
+</div>

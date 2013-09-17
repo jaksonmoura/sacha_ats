@@ -78,6 +78,29 @@ table{
       max-height: 100px;
       border-bottom:1px solid #e0e0e0;
     }
+
+    // yellow tr
+    .call_warning:nth-child(2n), .call_warning:nth-child(2n+1){
+      background: #FFEB00;
+    }
+
+    .call_warning:nth-child(2n):hover, .call_warning:nth-child(2n+1):hover{
+      background: #FADF8A;
+    }
+
+    // red tr
+    .call_danger:nth-child(2n), .call_danger:nth-child(2n+1){
+      background: #C93434;
+      color: #fff;
+      text-shadow: 0 -1px 0px rgba(black, .5);
+    }
+
+    .call_danger:nth-child(2n):hover, .call_danger:nth-child(2n+1):hover{
+      background: #E7ABAB;
+      color: #333;
+      text-shadow: 0 1px 0px rgba(white, .5);
+    }
+
   }
 
 }

@@ -11,19 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130910171024) do
+ActiveRecord::Schema.define(version: 20130916191918) do
 
   create_table "calls", force: true do |t|
     t.integer  "dpto_id"
     t.integer  "servant_id"
     t.integer  "technical_id"
     t.string   "equipment"
-    t.string   "problem"
+    t.text     "problem"
     t.string   "service"
     t.string   "obs"
     t.boolean  "closed",       default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "numprocess"
   end
 
   create_table "technicals", force: true do |t|
