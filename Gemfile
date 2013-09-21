@@ -6,6 +6,9 @@ group :test do
   gem "factory_girl_rails", "~> 4.0"
 end
 
+#webserver
+gem 'thin'
+
 # Rich Text
 gem 'tinymce-rails'
 

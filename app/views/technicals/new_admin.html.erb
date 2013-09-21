@@ -1,0 +1,51 @@
+<h1>Novo administrador</h1>
+
+<% if @admin >= 1 %>
+  <div class="info">
+    Já existe um administrador para este sistema.
+  </div>
+<% else %>
+  <% content_for :head do %>
+    <%= stylesheet_link_tag 'scaffolds' %>
+  <% end %>
+  <%= form_for @technical, :as => :technical, :url => create_admin_path(@technical) do |f| %>
+    <% if @technical.errors.any? %>
+      <div id="error_explanation">
+        <% if @technical.errors.count == 1%>
+          <h3>Técnico não salva devido à algum erro, verifique-o abaixo:</h3>
+        <% else %>
+          <h3>Técnico não salva devido à algums erros, verifique-os abaixo:</h3>
+        <% end %>
+
+        <ul>
+        <% @technical.errors.each do |e, msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="fields">
+      <div class="field">
+        <label>Nome</label><br>
+        <%= f.text_field :name, autofocus: true %>
+      </div>
+      <div class="field">
+        <label>Nome de usuário</label><br>
+        <%= f.text_field :nickname %>
+      </div>
+      <div class="field">
+        <label>Senha</label><br>
+        <%= f.password_field :password %>
+      </div>
+      <div class="field">
+        <label>Confirmação da senha</label><br>
+        <%= f.password_field :password_confirmation %>
+      </div>
+      <%= f.hidden_field :admin, value: true %>
+    </div>
+    <div class="actions">
+      <%= f.submit "Salvar" %>
+    </div>
+  <% end %>
+<% end %>

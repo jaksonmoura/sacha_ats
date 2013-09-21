@@ -1,7 +1,7 @@
 <%= form_for(@service) do |f| %>
   <% if @service.errors.any? %>
     <div id="error_explanation">
-      <% if @call.errors.count == 1%>
+      <% if @service.errors.count == 1%>
         <h3>Serviço não salvo devido à algum erro, verifique-o abaixo:</h3>
       <% else %>
         <h3>Serviço não salvo devido à algums erros, verifique-os abaixo:</h3>

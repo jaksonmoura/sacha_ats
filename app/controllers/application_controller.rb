@@ -13,9 +13,13 @@ class ApplicationController < ActionController::Base
     end
 
     def authenticate_admin
-      if session[:logged] != 1|| session[:admin] != 1 || session[:logged].nil?
+      if session[:logged] != 1 || session[:admin] != 1 || session[:logged].nil?
         redirect_to login_path, notice: 'Você precisa logar como administrador!'
       end
+    end
+
+    def current_technical
+      Technical.find(session[:technical_id])
     end
 
 end

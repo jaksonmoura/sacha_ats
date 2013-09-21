@@ -1,7 +1,8 @@
 class TechnicalsController < ApplicationController
-  skip_before_filter :authenticate_user, only: [:index, :new, :create]
-  before_filter :authenticate_admin, only: [:index, :new, :create]
   before_action :set_technical, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :authenticate_user, only: [:index, :new, :create, :new_admin, :create_admin]
+  before_filter :authenticate_admin, only: [:index, :new, :create]
+  before_filter :can_edit, only: [:edit, :update]
 
 
   # GET /technicals
@@ -66,6 +67,28 @@ class TechnicalsController < ApplicationController
     end
   end
 
+  def new_admin
+    @admin = Technical.where("admin = ?", true).count
+    @technical = Technical.new
+  end
+
+  def create_admin
+    @technical = Technical.new(technical_params)
+    @admin = Technical.where("admin = ?", true).count
+    @technical.admin = true
+
+    respond_to do |format|
+      if @technical.save
+        format.html { redirect_to login_path, notice: 'Administrador cadastrado com sucesso.' }
+        format.json { render action: 'show', status: :created, location: @technical }
+      else
+        format.html { render action: 'new_admin' }
+        format.json { render json: @technical.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_technical
@@ -78,7 +101,13 @@ class TechnicalsController < ApplicationController
     end
 
     def admin?
-      
+      current_technical.admin
+    end
+
+    def can_edit
+      if current_technical.id != @technical.id && admin? == false
+        redirect_to login_path, notice: 'Você precisa logar como administrador!'
+      end
     end
 
 end
