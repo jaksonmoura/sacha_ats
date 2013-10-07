@@ -5,9 +5,11 @@ class CallsController < ApplicationController
   # GET /calls/1/follow
   def follow
     if params[:numprocess]
-      @call = Call.find_by_numprocess(params[:numprocess])
-      @dpto = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.dpto WHERE dpto.id = #{@call.dpto_id}")
-      @servant = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.servant WHERE servant.id = #{@call.servant_id}")
+      @call = Call.find_by_numprocess(params[:numprocess], :include => :service)
+      if @call
+        @dpto = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.dpto WHERE dpto.id = #{@call.dpto_id}")
+        @servant = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.servant WHERE servant.id = #{@call.servant_id}")
+      end
     end
   end
 
@@ -23,14 +25,18 @@ class CallsController < ApplicationController
   # GET /calls/1.json
   def show
     @dpto = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.dpto WHERE dpto.id = #{@call.dpto_id}")
+    @call = Call.find(params[:id], :include => :service)
     @servant = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.servant WHERE servant.id = #{@call.servant_id}")
   end
 
   # GET /calls/new
   def new
+    # Uma melhoria seria usar o dpto_id e subdpto_id dos servidores para determinar automaticamente seu departamento,
+    # diminuindo os cliques ao realizar uma nova chamada.
+    
     @call = Call.new
-    @dptos = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.dpto")
-    @services = Service.all
+    @dptos = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.dpto AS d ORDER BY d.name ASC")
+    @services = Service.all.order('service ASC')
   end
 
   # GET /calls/1/edit

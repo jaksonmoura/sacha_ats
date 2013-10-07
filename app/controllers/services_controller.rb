@@ -4,7 +4,7 @@ class ServicesController < ApplicationController
   # GET /services
   # GET /services.json
   def index
-    @services = Service.all
+    @services = Service.all.order('service ASC')
   end
 
   # GET /services/new
@@ -23,7 +23,7 @@ class ServicesController < ApplicationController
 
     respond_to do |format|
       if @service.save
-        format.html { redirect_to @service, notice: 'Serviço criado com sucesso.' }
+        format.html { redirect_to services_path, notice: 'Serviço criado com sucesso.' }
         format.json { render action: 'index', status: :created, location: @service }
       else
         format.html { render action: 'new' }
@@ -37,7 +37,7 @@ class ServicesController < ApplicationController
   def update
     respond_to do |format|
       if @service.update(service_params)
-        format.html { redirect_to @service, notice: 'Serviço alterado com sucesso.' }
+        format.html { redirect_to services_path, notice: 'Serviço alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

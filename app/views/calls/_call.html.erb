@@ -5,6 +5,16 @@
 <% else %>
 <tr id="call" data-time="<%= call.created_at.to_i %>">
 <% end %>
+    <% case call.service.priority %>
+    <% when 1 %>
+      <td class="danger_p">Urgente</td>
+    <% when 2 %>
+      <td class="warning_p">Alta</td>
+    <% when 3 %>
+      <td class="normal_p">Normal</td>
+    <% when 4 %>
+      <td class="low_p">Baixa</td>
+    <% end %>
   <td><%= call.created_at.strftime "%d/%m %H:%M" %></td>
   <td>
     <% @dptos.each do |dpto| %>
@@ -14,18 +24,6 @@
   <td>
     <% @servants.each do |servant| %>
       <%= servant['name'] if call.servant_id == servant['id'] %>
-    <% end %>
-  </td>
-  <td>
-    <% case call.service.priority %>
-    <% when 1 %>
-      <span class="danger_p">Urgente</span>
-    <% when 2 %>
-      <span class="warning_p">Alta</span>
-    <% when 3 %>
-      <span class="normal_p">Normal</span>
-    <% when 4 %>
-      <span class="low_p">Baixa</span>
     <% end %>
   </td>
   <td><%= call.service.service %></td>

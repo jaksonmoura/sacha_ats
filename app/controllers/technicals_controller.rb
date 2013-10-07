@@ -8,7 +8,7 @@ class TechnicalsController < ApplicationController
   # GET /technicals
   # GET /technicals.json
   def index
-    @technicals = Technical.all
+    @technicals = Technical.all.order('name ASC')
   end
 
   # GET /technicals/1

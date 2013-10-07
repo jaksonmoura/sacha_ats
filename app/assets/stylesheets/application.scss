@@ -274,7 +274,22 @@ input, textarea{
 
   .servant, .dpto{
     float: left;
-    width: 200px;
+  }
+
+  .dpto{
+    width: 40%;
+
+    select{
+      min-width: 100%;
+    }
+  }
+
+  .servant{
+    width: 60%;
+
+    input{
+      min-width: 95%;
+    }
   }
 
   .servant, .dpto, .equipment, .service{

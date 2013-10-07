@@ -23,13 +23,13 @@
         <h1>Sistema de Chamadas</h1>
 
         <nav>
-          <li><%= link_to "Chamadas", calls_path %></li>
-          <% if admin? %>
-          <li><%= link_to "Técnicos", technicals_path %></li>
-          <% end %>
           <% if logged_in? %>
+          <li><%= link_to "Chamadas", calls_path %></li>
           <li><%= link_to "Serviços", services_path %></li>
           <li><%= link_to "Relatórios", calls_path %></li>
+          <% end %>
+          <% if admin? %>
+          <li><%= link_to "Técnicos", technicals_path %></li>
           <% end %>
         </nav>
 

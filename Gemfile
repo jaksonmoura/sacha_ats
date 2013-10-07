@@ -10,7 +10,6 @@ end
 gem 'thin'
 
 # Rich Text
-gem 'tinymce-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'

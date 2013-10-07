@@ -1,7 +1,6 @@
 <% content_for :head do %>
-  <%= tinymce_assets %>
   <%= stylesheet_link_tag  "ui-lightness/jquery-ui-1.10.3.custom", "scaffolds", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "jquery-ui-1.10.3.custom.min", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "jquery-ui-1.10.3.custom.min", "ckeditor/ckeditor.js", "data-turbolinks-track" => true %>
 <% end %>
 <%= form_for(@call) do |f| %>
   <% if @call.errors.any? %>
@@ -30,12 +29,12 @@
       <%= f.select(:dpto_id, @dptos.map {|d| [ d['name'], d['id'] ] }, {include_blank: 'Escolha seu departamento'}, required: true) %>
     </div>
     <div class="equipment">
-      <label>Equipamento com problemas</label><br>
-      <%=  f.select(:service_id, @services.map { |s| [s.service, s.id] }, {include_blank: 'Escolha o equipamento'}, required: true) %>
+      <label>Problema</label><br>
+      <%=  f.select(:service_id, @services.map { |s| [s.service, s.id] }, {include_blank: 'Escolha o problema'}, required: true) %>
     </div>
     <div class="problem">
       <label>Descrição do problema</label><br>
-      <%= f.text_area :problem, class: "tinymce" %>
+      <%= f.text_area :problem, class: "ckeditor" %>
     </div>
     <div class="actions">
       <%= f.submit 'Salvar chamada' %>
@@ -43,7 +42,6 @@
 <% end %>
 
 <% content_for :footer do %>
-  <%= tinymce %>
   <script>
     $(function() {
       return $('#servant_name').autocomplete({
@@ -52,6 +50,8 @@
         select: function( event, ui ) {
           $('#call_servant_id').val(ui.item.s_id);
           $('#servant_name').attr('readonly', true);
+          $('#servant_name').attr('style', 'background: #d9d9d9;');
+          $('#call_dpto_id').focus();
         },
         source: function(request, response) {
           return $.ajax({
@@ -89,11 +89,9 @@
       }); 
     });
 
-    $('#servant_name').click(function() {
-      $(this).removeAttr("readonly");
-    });
     $('#servant_name').focus(function() {
       $(this).removeAttr("readonly");
+      $(this).removeAttr('style');
     });
   </script>
 <% end %>
