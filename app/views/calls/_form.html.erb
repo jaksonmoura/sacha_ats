@@ -1,6 +1,6 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag  "ui-lightness/jquery-ui.custom", "scaffolds", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "jquery-ui", "ckeditor/ckeditor", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "jquery-ui", "nicEdit" , "data-turbolinks-track" => true %>
 <% end %>
 <%= form_for(@call) do |f| %>
   <% if @call.errors.any? %>
@@ -43,21 +43,11 @@
 
 <% content_for :footer do %>
   <script>
-
-    CKEDITOR.replace( 'call_problem', {
-        startupFocus : true,
-                toolbar :
-                    [
-                        ['ajaxsave'],
-                        ['Bold', 'Italic', 'Underline', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink' ],
-                        ['Cut','Copy','Paste','PasteText'],
-                        ['Undo','Redo','-','RemoveFormat'],
-                        ['TextColor','BGColor'],
-                        ['Maximize', 'Image']
-                    ],
-                filebrowserUploadUrl : '/calls/upload_image',
-        language: 'pt-br'
-    });
+    bkLib.onDomLoaded(function() {
+            new nicEditor(
+            {iconsPath : '/sacha/assets/nicEditorIcons.gif',
+            buttonList : ['bold','italic','underline','strikeThrough','subscript','superscript','html', 'ul', 'ol', 'indent', 'outdent', 'upload']}).panelInstance('call_problem');
+      });
 
     $(function() {
       return $('#servant_name').autocomplete({
