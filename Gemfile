@@ -9,9 +9,6 @@ end
 #webserver
 gem 'thin'
 
-# Rich text editor
-gem 'ckeditor'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
