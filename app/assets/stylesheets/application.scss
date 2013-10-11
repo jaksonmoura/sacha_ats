@@ -267,7 +267,7 @@ input, textarea{
     border: 1px solid rgba($bg, .4);
   }
 
-  .equipment, .problem, .actions{
+  .service, .problem, .actions{
     float: left;
     width: 100%;
   }
@@ -292,7 +292,7 @@ input, textarea{
     }
   }
 
-  .servant, .dpto, .equipment, .service{
+  .servant, .dpto, .service{
     margin: 0 0 24px 0;
   }
 
@@ -300,7 +300,7 @@ input, textarea{
     width: 100%;
   }
 
-  .equipment select{
+  .service select{
     width: 100%;
   }
 

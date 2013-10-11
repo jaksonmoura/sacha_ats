@@ -23,12 +23,9 @@
       <label>Servidor</label><br>
       <%= text_field_tag :servant_name, '', autofocus: true, 'data-autocompleteUrl' => get_servants_calls_path, required: true %>
       <%= f.hidden_field :servant_id %>
+      <%= f.hidden_field :dpto_id %>
     </div>
-    <div class="dpto">
-      <label>Departamento</label><br>
-      <%= f.select(:dpto_id, @dptos.map {|d| [ d['name'], d['id'] ] }, {include_blank: 'Escolha seu departamento'}, required: true) %>
-    </div>
-    <div class="equipment">
+    <div class="service">
       <label>Problema</label><br>
       <%=  f.select(:service_id, @services.map { |s| [s.service, s.id] }, {include_blank: 'Escolha o problema'}, required: true) %>
     </div>
@@ -55,9 +52,10 @@
         autoFocus: true,
         select: function( event, ui ) {
           $('#call_servant_id').val(ui.item.s_id);
+          $('#call_dpto_id').val(ui.item.s_dpto_id);
           $('#servant_name').attr('readonly', true);
           $('#servant_name').attr('style', 'background: #d9d9d9;');
-          $('#call_dpto_id').focus();
+          $('#call_service').focus();
         },
         source: function(request, response) {
           return $.ajax({
@@ -91,6 +89,7 @@
         },
         focus: function(event, ui) {
           $('#call_servant_id').val(ui.item.s_id);
+          $('#call_dpto_id').val(ui.item.s_dpto_id);
         }
       }); 
     });

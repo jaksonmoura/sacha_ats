@@ -118,7 +118,7 @@ class CallsController < ApplicationController
   def get_servants
     @servants = ActiveRecord::Base.connection.exec_query("SELECT * FROM dados_ats.servant WHERE servant.name LIKE '%#{params[:servant]}%'")
     @result = @servants.map do |s|
-      { value: s['name'], s_id: s['id']  }
+      { value: s['name'], s_id: s['id'], s_dpto_id: s['dpto_id']  }
     end
     respond_to do |format|
       format.json { render :json => @result.to_json }

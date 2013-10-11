@@ -1,6 +1,7 @@
 Sacha::Application.routes.draw do
   scope '/sacha' do
 
+    mount Ckeditor::Engine => '/ckeditor'
     # Session
     match '/login' => 'sessions#create', via: [:get, :post]
     match '/logout' => 'sessions#destroy', via: [:get, :post]
